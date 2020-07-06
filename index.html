@@ -1,0 +1,161 @@
+<html>
+
+<head>
+    <title>Guess Number</title>
+    <meta name="author" content="I-No Liao">
+    <meta name="about" content="Guess Number Game">
+
+    <!-- CSS -->
+    <style>
+        body {
+            background-color: #56789a !important;
+        }
+
+        h1 {
+            padding-top: 0.5em;
+            font-size: 3em;
+            text-align: center;
+            color: #f2f2f2;
+        }
+
+        .container {
+            margin-top: 5em;
+        }
+
+        .col {
+            padding: 1em 1em 1em 1em;
+            background: #f2f2f2;
+            text-align: center;
+        }
+
+        h2 {
+            padding-bottom: 0.2em;
+            border-bottom: 1px solid lightgray;
+        }
+
+        input {
+            padding: 0.2em 0.2em 0.2em 0.2em;
+        }
+
+        #hintInputA, #hintInputB{
+            width: 2em;
+        }
+
+        #warningMessage {
+            color: crimson;
+        }
+
+        .guessText, .hintText {
+            font-size: 1.5em;
+        }
+
+        #userGuess {
+            width: 3.2em;
+        }
+    </style>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Guess Number -->
+    <script src="guess-number-game.js"></script>
+</head>
+
+<body>
+    <h1>Guess Number Game</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>I Guess Your Number</h2>
+                <div>Pick a four digits number and write it down. Each digit must be unique.</div>
+                <div>Click "Play" and the Bot will start guessing a number.</div>
+                <div>You should give hint in the format of "XAXB".</div>
+                <div>For example, Your answer is "1234".</div>
+                <div>Guessing "3281" would results in "1A2B" since "2" is correct and "1" and "3" appears but in the wrong position.</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button id="playButton" class="btn btn-primary">Play</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4>Your Hint</h4>
+                <br>
+                <div>
+                    <input id="hintInputA" type="text" placeholder="0"> A 
+                    <input id="hintInputB" type="text" placeholder="0"> B | 
+                    <button id="submitButton" disabled>submit</button>
+                </div>
+                <br>
+                <div>
+                    <p id="warningMessage"></p>
+                </div>
+            </div>
+            <div class="col">
+                <h4>Bot's Guess</h4>
+                <br>
+                <div><span class="guessText" id="numberOfGuesses"></span><span class="guessText" id="guessDisplay"></span></div>
+                <br>
+                <div>
+                    <p id="winningMessage"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>You Guess My Number</h2>
+                <div>The Bot has a secret number.</div>
+                <div>Please guess the number.</div>
+                <div>The Bot will reply a hint in the format of "XAXB".</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button id="playButtonMode2" class="btn btn-primary">Play</button>
+                <button id="answerButtonMode2" class="btn btn-primary" disabled>Get Answer</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4>Your Guess</h4>
+                <br>
+                <div>
+                    <input id="userGuess" type="text" placeholder="1234"> |
+                    <button id="submitButtonMode2" disabled>submit</button>
+                </div>
+                <br>
+                <div>
+                    <p id="warningMessageMode2"></p>
+                </div>
+            </div>
+            <div class="col">
+                <h4>Bot's Hint</h4>
+                <br>
+                <div><span class="hintText" id="numberOfGuessesMode2"></span><span class="hintText" id="hintDisplay"></span></div>
+                <br>
+                <div>
+                    <p id="winningMessageMode2"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap 4 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
