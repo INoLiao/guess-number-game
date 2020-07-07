@@ -29,11 +29,6 @@ class GuessNumber:
         return str(countOfA) + "A" + str(countOfB) + "B"
 
     def guess(self):
-        if self.round == 0:
-            self.previousGuess = random.choice(self.numbers)
-            self.round += 1
-            return self.previousGuess
-
         self.previousGuess = random.choice(self.numbers)
         self.round += 1
         return self.previousGuess
