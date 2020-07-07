@@ -155,13 +155,31 @@ class HintMachine {
 
     return countA.toString() + 'A' + countB.toString() + 'B';
   };
+
+  /**
+   * Set the answer.
+   * @param {String} answer The new answer.
+   */
+  setAnswer = (answer) => {
+    this.answer = answer;
+  }
 }
+
+/**
+ * Validate whether the number is valid.
+ * @param {String} number The input number in type of String.
+ * @returns {Boolean} Whether the number is valid.
+ */
+const validateNumber = (number) => {
+  const numberSet = new Set(number);
+  return /[0-9][0-9][0-9][0-9]/.test(number) && numberSet.size == 4;
+};
 
 const mode1 = () => {
   let gn;
   let playButton = document.getElementById('playButton');
-  let hintInputA = document.getElementById('hintInputA'); 
-  let hintInputB = document.getElementById('hintInputB'); 
+  let hintInputA = document.getElementById('hintInputA');
+  let hintInputB = document.getElementById('hintInputB');
   let submitButton = document.getElementById('submitButton');
   let warningMessage = document.getElementById('warningMessage');
   let guessDisplay = document.getElementById('guessDisplay');
@@ -171,7 +189,7 @@ const mode1 = () => {
   const initMode1 = () => {
     submitButton.disabled = true;
     playButton.innerHTML = 'Play';
-  }
+  };
 
   playButton.addEventListener('click', () => {
     gn = new GuessNumber(4);
@@ -187,7 +205,8 @@ const mode1 = () => {
 
   submitButton.addEventListener('click', () => {
     if (gn.numbers.length === 1) {
-      winningMessage.innerHTML = 'Bot used ' + gn.round.toString() + ' attempt(s) to guess the number';
+      winningMessage.innerHTML =
+        'Bot used ' + gn.round.toString() + ' attempt(s) to guess the number';
       initMode1();
       return;
     }
@@ -202,7 +221,8 @@ const mode1 = () => {
 
     const hint = hintInputAVal + 'A' + hintInputBVal + 'B';
     if (hint === '4A0B') {
-      winningMessage.innerHTML = 'Bot used ' + gn.round.toString() + ' attempt(s) to guess the number';
+      winningMessage.innerHTML =
+        'Bot used ' + gn.round.toString() + ' attempt(s) to guess the number';
       gn.eliminate(hint);
       initMode1();
     } else {
@@ -221,7 +241,7 @@ const mode1 = () => {
     hintInputA.value = '';
     hintInputB.value = '';
   });
-}
+};
 
 const mode2 = () => {
   let gn = new GuessNumber(4);
@@ -239,10 +259,10 @@ const mode2 = () => {
     submitButtonMode2.disabled = true;
     answerButtonMode2.disabled = true;
     playButtonMode2.innerHTML = 'Play';
-  }
+  };
 
   playButtonMode2.addEventListener('click', () => {
-    hm = new HintMachine(gn.getRandomElement(gn.numbers)); 
+    hm = new HintMachine(gn.getRandomElement(gn.numbers));
     submitButtonMode2.disabled = false;
     answerButtonMode2.disabled = false;
     playButtonMode2.innerHTML = 'Replay';
@@ -255,9 +275,11 @@ const mode2 = () => {
 
   submitButtonMode2.addEventListener('click', () => {
     const userGuessVal = userGuess.value;
-    const numberSet = new Set(userGuessVal);
-    if (!userGuessVal || !/[0-9][0-9][0-9][0-9]/.test(userGuessVal) || numberSet.size !== 4) {
-      warningMessageMode2.innerHTML = 'Only numbers are allowed. Duplication is not allowed.';
+
+    // input validation
+    if (!validateNumber(userGuessVal)) {
+      warningMessageMode2.innerHTML =
+        'Only numbers are allowed. Duplication is not allowed. Cannot be empty.';
       return;
     } else {
       warningMessageMode2.innerHTML = '';
@@ -267,7 +289,8 @@ const mode2 = () => {
     if (hint === '4A0B') {
       numberOfGuessesMode2.innerHTML = 'Attempt ' + hm.round.toString() + ': ';
       hintDisplay.innerHTML = hint;
-      winningMessageMode2.innerHTML = 'You used ' + hm.round.toString() + ' attempt(s) to guess the number';
+      winningMessageMode2.innerHTML =
+        'You used ' + hm.round.toString() + ' attempt(s) to guess the number';
       initMode2();
     } else {
       numberOfGuessesMode2.innerHTML = 'Attempt ' + hm.round.toString() + ': ';
@@ -280,12 +303,41 @@ const mode2 = () => {
   answerButtonMode2.addEventListener('click', () => {
     numberOfGuessesMode2.innerHTML = 'Answer: ';
     hintDisplay.innerHTML = hm.answer;
-    winningMessageMode2.innerHTML = 'You failed to guess the number using ' + hm.round.toString() + ' attempt(s)';
+    winningMessageMode2.innerHTML =
+      'You failed to guess the number using ' + hm.round.toString() + ' attempt(s)';
     initMode2();
-  })
-}
+  });
+};
+
+const mode3 = () => {
+  let hm = new HintMachine("1234");
+  let mode3PatternA = document.getElementById('mode3PatternA');
+  let mode3PatternB = document.getElementById('mode3PatternB');
+  let warningMessageMode3 = document.getElementById('warningMessageMode3');
+  let submitButtonMode3 = document.getElementById('submitButtonMode3');
+  let mode3Result = document.getElementById('mode3Result');
+
+  submitButtonMode3.addEventListener('click', () => {
+    const patternA = mode3PatternA.value;
+    const patternB = mode3PatternB.value;
+
+    // input validation
+    if (!validateNumber(patternA) || !validateNumber(patternB)) {
+      warningMessageMode3.innerHTML =
+        'Only numbers are allowed. Duplication is not allowed. Cannot be empty.';
+      return;
+    } else {
+      warningMessageMode3.innerHTML = '';
+    }
+
+    hm.setAnswer(patternA);
+    const hint = hm.getHint(patternB);
+    mode3Result.innerHTML = hint;
+  });
+};
 
 window.onload = () => {
   mode1();
   mode2();
+  mode3();
 };

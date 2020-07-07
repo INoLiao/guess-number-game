@@ -20,6 +20,7 @@
 
         .container {
             margin-top: 5em;
+            margin-bottom: 5em;
         }
 
         .col {
@@ -37,19 +38,19 @@
             padding: 0.2em 0.2em 0.2em 0.2em;
         }
 
-        #hintInputA, #hintInputB{
+        #hintInputA, #hintInputB {
             width: 2em;
         }
 
-        #warningMessage {
+        #warningMessage, #warningMessageMode2, #warningMessageMode3 { 
             color: crimson;
         }
 
-        .guessText, .hintText {
+        .guessText, .hintText, .mode3Result {
             font-size: 1.5em;
         }
 
-        #userGuess {
+        #userGuess, #mode3PatternA, #mode3PatternB {
             width: 3.2em;
         }
     </style>
@@ -141,6 +142,35 @@
                 <div>
                     <p id="winningMessageMode2"></p>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Hint Generator</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4>Compare Two Patterns</h4>
+                <br>
+                <div>
+                    <div>Pattern A: <input id="mode3PatternA" type="text" placeholder="1234"></div>
+                    <br>
+                    <div>Pattern B: <input id="mode3PatternB" type="text" placeholder="1234"></div>
+                    <br>
+                    <div><button id="submitButtonMode3">Compare</button></div>
+                </div>
+                <br>
+                <div>
+                    <p id="warningMessageMode3"></p>
+                </div> 
+            </div>
+            <div class="col">
+                <h4>Result</h4>
+                <br>
+                <div><span class="mode3Result" id="mode3Result"></span></div>
             </div>
         </div>
     </div>
